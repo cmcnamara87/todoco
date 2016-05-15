@@ -9,6 +9,10 @@
         <p>${{ vm.activity.price }}</p>
         <img ng-src="{{ vm.activity.image_url }}" style="width: 64px; height: 64px">
         <div ng-bind-html="vm.activity.description"></div>
+
+        <div ng-repeat="timetable in vm.activity.timetables">
+            {{ timetable.start_time }}
+        </div>
         <div class="padding">
             <button class="button button-block button-positive" ng-click="vm.openActivity(vm.activity)">More Info</button>
         </div>

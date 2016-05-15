@@ -11,6 +11,7 @@ x style card
 x fix remove modal not working
 x add button to open in browser
 x style item page
+- add done to activity
 - add slash screen
 - add icon
 - change name

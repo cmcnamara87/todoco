@@ -131,6 +131,9 @@
                     $scope.registerModal = modal;
                     $scope.registerModal.show();
                     $scope.register = function (credentials) {
+                        if(!credentials.email.length) {
+                            return;
+                        }
                         window.localStorage.email = credentials.email;
                         return $http.post(ENV.baseApiUrl + 'users/' + window.localStorage.userId +
                         '/email', credentials).then(function () {
