@@ -60,7 +60,7 @@
             '/activities?page=' + page).then(function (response) {
                 var cards = response.data.data;
                 vm.cards.master = cards;
-                vm.cards.active = cards.slice(0, 10);
+                vm.cards.active = cards;
                 vm.isLoading = false;
             });
         }
