@@ -142,6 +142,9 @@
         }
 
         $scope.$on('$destroy', function () {
+            if(!$scope.registerModal) {
+                return;
+            }
             $scope.registerModal.remove();
         });
     }
