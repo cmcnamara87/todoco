@@ -10,8 +10,8 @@ x add loading to calendar
 x style card
 x fix remove modal not working
 x add button to open in browser
+x style item page
 - add slash screen
 - add icon
 - change name
-- style item page
 - recently liked list
