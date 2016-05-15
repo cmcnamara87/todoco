@@ -19,6 +19,7 @@
         activate();
 
         function activate() {
+            vm.isLoading = true;
             vm.cards = {
                 // Master - cards that haven't been discarded
                 master: [],
@@ -60,6 +61,7 @@
                 var cards = response.data.data;
                 vm.cards.master = cards;
                 vm.cards.active = cards.slice(0, 10);
+                vm.isLoading = false;
             });
         }
 

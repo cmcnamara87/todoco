@@ -5,6 +5,8 @@ x add git
 x change icons
 x update tab name
 x remove log out
+x add loading to cards
+x add loading to calendar
 - add slash screen
 - add icon
 - change name

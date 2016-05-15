@@ -18,9 +18,11 @@
         ////////////////
 
         function activate() {
+            vm.isLoading = true;
             return $http.get(ENV.baseApiUrl + 'users/' + window.localStorage.userId + '/calendar')
                 .then(function (response) {
-                vm.calendar = response.data;
+                    vm.isLoading = false;
+                    vm.calendar = response.data;
             });
         }
     }

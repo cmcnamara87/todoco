@@ -1,6 +1,9 @@
 <ion-view view-title="Calendar">
     <ion-content>
         <ion-list>
+            <div ng-if="vm.isLoading" style="text-align: center; margin-top: 100px;">
+                <ion-spinner></ion-spinner>
+            </div>
             <div ng-repeat="(date, activities) in vm.calendar" >
                 <div class="item item-divider">
                     {{ date * 1000 | date }}
