@@ -6,7 +6,7 @@
         .controller('DashController', DashController);
 
     /* @ngInject */
-    function DashController($scope, $http, ENV, $ionicModal, $state) {
+    function DashController($scope, $http, ENV, $ionicModal, $state, $ionicPopup) {
         /* jshint validthis: true */
 
         var vm = this;
@@ -123,24 +123,35 @@
                 return;
             }
             var done = vm.cards.liked.length + vm.cards.disliked.length;
-            if (done !== 0 && done % 5 == 0) {
-                $ionicModal.fromTemplateUrl('templates/register.html', {
-                    scope: $scope,
-                    animation: 'slide-in-up'
-                }).then(function (modal) {
-                    $scope.registerModal = modal;
-                    $scope.registerModal.show();
-                    $scope.register = function (credentials) {
-                        if(!credentials.email.length) {
-                            return;
-                        }
-                        window.localStorage.email = credentials.email;
-                        return $http.post(ENV.baseApiUrl + 'users/' + window.localStorage.userId +
-                        '/email', credentials).then(function () {
-                            $scope.registerModal.hide();
+            if (done !== 0 && done % 10 == 0) {
+                var confirmPopup = $ionicPopup.confirm({
+                    title: 'Stay Informed',
+                    template: 'Want to be emailed a daily digest of your activities?'
+                });
+                confirmPopup.then(function(res) {
+                    if(res) {
+                        $ionicModal.fromTemplateUrl('templates/register.html', {
+                            scope: $scope,
+                            animation: 'slide-in-up'
+                        }).then(function (modal) {
+                            $scope.registerModal = modal;
+                            $scope.registerModal.show();
+                            $scope.register = function (credentials) {
+                                if(!credentials.email.length) {
+                                    return;
+                                }
+                                window.localStorage.email = credentials.email;
+                                return $http.post(ENV.baseApiUrl + 'users/' + window.localStorage.userId +
+                                '/email', credentials).then(function () {
+                                    $scope.registerModal.hide();
+                                });
+                            }
                         });
+                    } else {
+                        console.log('');
                     }
                 });
+
             }
         }
 
