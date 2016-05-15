@@ -1,0 +1,18 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <h1 class="title">What's your email?</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">What's your email?</span>
+                <input type="text" placeholder="" ng-model="credentials.email">
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button button-full button-positive" ng-click="register(credentials)">
+                Let's Go!
+            </button>
+        </div>
+    </ion-content>
+</ion-modal-view>

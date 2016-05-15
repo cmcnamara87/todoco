@@ -1,0 +1,144 @@
+<ion-view view-title="Dashboard">
+    <style>
+        td-cards {
+            display: block;
+        }
+
+        td-card {
+            position: absolute;
+            left: 50%;
+            margin-top: 80px;
+            margin-bottom: 40px;
+            margin-left: -150px;
+            width: 300px;
+            height: 300px;
+
+            border: 1px solid #999;
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+            border-radius: 6px;
+            background-color:   white;;
+        }
+        /*
+        td-card.card-0 {
+          -webkit-transform: translate3d(0, 0px, 0);
+          transform: translate3d(0, 0px, 0);
+          top: 0px;
+          z-index: 10;
+        }
+        td-card.card-1 {
+          -webkit-transform: translate3d(0, 4px, 0);
+          transform: translate3d(0, 4px, 0);
+          z-index: 9;
+        }
+        td-card.card-2 {
+          -webkit-transform: translate3d(0, 8px, 0);
+          transform: translate3d(0, 8px, 0);
+          z-index: 8;
+        }
+        */
+
+        td-card .image {
+            position: relative;
+        }
+
+        td-card img {
+            max-width: 100%;
+            border-radius: 6px;
+        }
+
+        .yes-text {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            color: rgb(111, 250, 111);
+            opacity: 0;
+        }
+        .no-text {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: rgb(255, 115, 115);
+            opacity: 0;
+        }
+
+        .fade {
+            -webkit-transition: 0.2s opacity linear;
+            transition: 0.2s opacity linear;
+            opacity: 0;
+        }
+    </style>
+  <ion-pane>
+      <ion-header-bar class="bar-default">
+          <h1 class="title">TD Cards</h1>
+      </ion-header-bar>
+
+      <!--<div class="td-title">-->
+          <!--<div class="row">-->
+              <!--<div class="col">Master: <span>{{ cards.master.length }}</span></div>-->
+              <!--<div class="col">Cards: <span>{{ cards.active.length }}</span></div>-->
+              <!--<div class="col">Discards: <span>{{ cards.discards.length }}</span></div>-->
+          <!--</div>-->
+          <!--<div class="row">-->
+              <!--<div class="col">Liked: <span>{{ cards.liked.length }}</span></div>-->
+              <!--<div class="col">Disliked: <span>{{ cards.disliked.length }}</span></div>-->
+          <!--</div>-->
+      <!--</div>-->
+
+      <!-- *************************
+        TD Cards
+        - We start off with an ng-if so that the cards are not generated
+          unless $scope.cards is not 'null'
+      ************************* -->
+      <div ng-if="vm.cards.active">
+          <td-cards>
+              <td-card ng-repeat="card in vm.cards.active"
+                       on-destroy="vm.cardDestroyed($index)"
+                       on-swipe-left="vm.cardSwipedLeft(card)"
+                       on-swipe-right="vm.cardSwipedRight(card)"
+                       on-partial-swipe="cardPartialSwipe(amt)"
+                       ng-click="vm.showActivityInfo(card)"
+                       class="card-{{$index}}">
+                  <div class="image">
+                      <div class="no-text">NOPE</div>
+                      <img ng-src="{{card.image_url}}">
+                      <div class="yes-text">LIKE</div>
+                  </div>
+                  <p>{{ card.title }}</p>
+                  <p>${{ card.price }}</p>
+              </td-card>
+          </td-cards>
+
+          <!--<td-cards>-->
+              <!--<td-card ng-repeat="card in vm.cards.active"-->
+                       <!--on-destroy="cardDestroyed($index)"-->
+                       <!--on-swipe-left="cardSwipedLeft($index)"-->
+                       <!--on-swipe-right="cardSwipedRight($index)"-->
+                       <!--style="background-color: white;">-->
+                  <!--<div class="image">-->
+                      <!--<div class="no-text"><i class="icon ion-thumbsdown"></i></div>-->
+                      <!--<div class="yes-text"><i class="icon ion-thumbsup"></i></div>-->
+                      <!--&lt;!&ndash; *************************-->
+                        <!--Discard-->
+                        <!--- The card is removed from the deck and a fly away animation is triggered.-->
+                        <!--- onClickTransitionOut is found in ionic.tdcards.js-->
+                        <!--- Animation can be customized by changing defaults-->
+                      <!--************************* &ndash;&gt;-->
+                      <!--<div class="discard" ng-click="onClickTransitionOut(card)">Later</div>-->
+                      <!--<img ng-src="{{ card.image_url }}">-->
+                      <!--<p>{{ card.title }} ${{ card.price }}</p>-->
+                  <!--</div>-->
+              <!--</td-card>-->
+              <!--&lt;!&ndash; *************************-->
+                <!--End Card-->
+                <!--- 'drag' is set to false. The user cannot drag it.-->
+                <!--- 'refreshCards()' reloads all cards that have NOT been discarded.-->
+              <!--************************* &ndash;&gt;-->
+              <!--<td-card id="end-card" drag="false">-->
+                  <!--<i class="icon ion-ios-refresh" ng-click="refreshCards()"></i>-->
+              <!--</td-card>-->
+          <!--</td-cards>-->
+      </div>
+  </ion-pane>
+</ion-view>

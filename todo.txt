@@ -1,0 +1,13 @@
+x item page
+x fix spacing android for cards
+x fix slowness for android tabs
+- add git
+- change icons
+- update tab name
+- add log out
+- add slash screen
+- add icon
+- change name
+- style item page
+- style card
+- recently liked list
