@@ -15,4 +15,5 @@ x add done to activity
 x add slash screen
 x add icon
 x change name
+x open in real browser
 - recently liked list

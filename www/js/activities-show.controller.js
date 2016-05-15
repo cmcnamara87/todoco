@@ -26,7 +26,7 @@
         }
 
         function openActivity(activity) {
-            cordova.InAppBrowser.open('http://to-do.co/activities/' + activity.slug, '_blank', 'location=yes');
+            cordova.InAppBrowser.open('http://to-do.co/activities/' + activity.slug, '_system', 'location=yes');
         }
     }
 
