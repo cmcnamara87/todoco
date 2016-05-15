@@ -1,9 +1,9 @@
 x item page
 x fix spacing android for cards
 x fix slowness for android tabs
-- add git
-- change icons
-- update tab name
+x add git
+x change icons
+x update tab name
 - add log out
 - add slash screen
 - add icon
