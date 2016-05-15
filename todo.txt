@@ -7,9 +7,10 @@ x update tab name
 x remove log out
 x add loading to cards
 x add loading to calendar
+x style card
 - add slash screen
 - add icon
 - change name
 - style item page
-- style card
 - recently liked list
+- fix remove modal not working

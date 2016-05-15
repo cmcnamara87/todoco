@@ -13,29 +13,30 @@
             width: 300px;
             height: 300px;
 
-            border: 1px solid #999;
-            box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
-            border-radius: 6px;
+            border: 1px solid #ddd;
+            /*box-shadow: 0px 1px 5px rgba(0,0,0,0.2);*/
+            border-radius: 0px;
             background-color:   white;;
         }
-        /*
-        td-card.card-0 {
-          -webkit-transform: translate3d(0, 0px, 0);
-          transform: translate3d(0, 0px, 0);
-          top: 0px;
-          z-index: 10;
-        }
-        td-card.card-1 {
-          -webkit-transform: translate3d(0, 4px, 0);
-          transform: translate3d(0, 4px, 0);
-          z-index: 9;
-        }
-        td-card.card-2 {
-          -webkit-transform: translate3d(0, 8px, 0);
-          transform: translate3d(0, 8px, 0);
-          z-index: 8;
-        }
-        */
+
+        /*td-card.card-0 {*/
+          /*-webkit-transform: translate3d(0, 0px, 0);*/
+          /*transform: translate3d(0, 0px, 0);*/
+          /*top: 0px;*/
+          /*z-index: 10;*/
+        /*}*/
+        /*td-card.card-1 {*/
+          /*-webkit-transform: translate3d(0, 4px, 0);*/
+          /*transform: translate3d(0, 4px, 0);*/
+          /*z-index: 9;*/
+            /*top: 4px;*/
+        /*}*/
+        /*td-card.card-2 {*/
+          /*-webkit-transform: translate3d(0, 8px, 0);*/
+          /*transform: translate3d(0, 8px, 0);*/
+          /*z-index: 8;*/
+            /*top: 8px;*/
+        /*}*/
 
         td-card .image {
             position: relative;
@@ -43,23 +44,37 @@
 
         td-card img {
             max-width: 100%;
-            border-radius: 6px;
+            /*border-radius: 6px;*/
         }
 
         .yes-text {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            width: 100%;
+            top: 0px;
+            text-align: left;
+            /*top: 10px;*/
+            background-color: #38976A;
+            /*left: 10px;*/
             font-size: 30px;
-            color: rgb(111, 250, 111);
+            padding: 5px 10px;;
+            color: white;
             opacity: 0;
         }
         .no-text {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            width: 100%;
+            top: 0px;
+            /*top: 10px;*/
+            background-color: #F36850;
+            /*left: 10px;*/
             font-size: 30px;
-            color: rgb(255, 115, 115);
+            padding: 5px 10px;;
+
+            /*top: 10px;*/
+            /*right: 10px;*/
+            text-align: right;
+            font-size: 30px;
+            color: white;
             opacity: 0;
         }
 
@@ -68,50 +83,77 @@
             transition: 0.2s opacity linear;
             opacity: 0;
         }
+
+        .decision-buttons {
+            position: absolute;
+            width: 100%;;
+            /*left: 50%;*/
+            text-align: center;
+            margin-top: 410px;
+            /*margin-bottom: 40px;*/
+            /*margin-left: -150px;*/
+            /*width: 300px;*/
+            /*height: 300px;*/
+/**/
+            /*border: 1px solid #ddd;*/
+            /*box-shadow: 0px 1px 5px rgba(0,0,0,0.2);*/
+            /*border-radius: 0px;*/
+            /*background-color:   white;;*/
+
+        /*}*/
+        }
+        .decision-buttons .button {
+            font-size: 20px;;
+        }
     </style>
-  <ion-pane>
+  <ion-pane style="background-color: #eee">
       <ion-header-bar class="bar-default">
           <h1 class="title">TD Cards</h1>
       </ion-header-bar>
 
-      <div ng-if="vm.isLoading" style="text-align: center; margin-top: 100px;">
+      <div ng-if="vm.isLoading" style="text-align: center; position: absolute;top:100px;width:100%;">
           <ion-spinner></ion-spinner>
       </div>
-      <!--<div class="td-title">-->
-          <!--<div class="row">-->
-              <!--<div class="col">Master: <span>{{ cards.master.length }}</span></div>-->
-              <!--<div class="col">Cards: <span>{{ cards.active.length }}</span></div>-->
-              <!--<div class="col">Discards: <span>{{ cards.discards.length }}</span></div>-->
-          <!--</div>-->
-          <!--<div class="row">-->
-              <!--<div class="col">Liked: <span>{{ cards.liked.length }}</span></div>-->
-              <!--<div class="col">Disliked: <span>{{ cards.disliked.length }}</span></div>-->
-          <!--</div>-->
-      <!--</div>-->
 
       <!-- *************************
         TD Cards
         - We start off with an ng-if so that the cards are not generated
           unless $scope.cards is not 'null'
       ************************* -->
-      <div ng-if="vm.cards.active">
+      <div ng-if="vm.cards.active.length">
           <td-cards>
               <td-card ng-repeat="card in vm.cards.active"
                        on-destroy="vm.cardDestroyed($index)"
-                       on-swipe-left="vm.cardSwipedLeft(card)"
-                       on-swipe-right="vm.cardSwipedRight(card)"
+                       on-swipe-left="vm.cardSwipedLeft($index)"
+                       on-swipe-right="vm.cardSwipedRight($index)"
                        on-partial-swipe="cardPartialSwipe(amt)"
-                       ng-click="vm.showActivityInfo(card)"
+                       ng-click="vm.showActivityInfo($index)"
                        class="card-{{$index}}">
                   <div class="image">
-                      <div class="no-text">NOPE</div>
+                      <div class="no-text">
+                          <i class="ion ion-thumbsdown"></i>
+                      </div>
                       <img ng-src="{{card.image_url}}">
-                      <div class="yes-text">LIKE</div>
+                      <div class="yes-text">
+                          <i class="ion ion-thumbsup"></i>
+                      </div>
                   </div>
-                  <p>{{ card.title }}</p>
-                  <p>${{ card.price }}</p>
+                  <div style="padding: 5px 10px;;">
+                     <div>
+                         {{ card.title }}
+                     </div>
+                      <div style="color: #999; font-size: 14px;">
+                          ${{ card.price }}
+                      </div>
+                  </div>
               </td-card>
           </td-cards>
+
+          <div class="decision-buttons">
+              <button class="button button-assertive" ng-click="vm.cardSwipedLeft(0);vm.cardDestroyed(0)"><i class="ion ion-thumbsdown"></i></button>
+              <button class="button button-calm" ng-click="vm.showActivityInfo(0)"><i class="ion ion-information"></i></button>
+              <button class="button button-balanced" ng-click="vm.cardSwipedRight(0);vm.cardDestroyed(0)"><i class="ion ion-thumbsup"></i></button>
+          </div>
 
           <!--<td-cards>-->
               <!--<td-card ng-repeat="card in vm.cards.active"-->

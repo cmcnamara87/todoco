@@ -15,6 +15,7 @@
         vm.cardDestroyed = cardDestroyed;
         vm.cardSwipedLeft = cardSwipedLeft;
         vm.cardSwipedRight = cardSwipedRight;
+        vm.loadMoreCards = loadMoreCards;
 
         activate();
 
@@ -59,8 +60,7 @@
             return $http.get(ENV.baseApiUrl + 'users/' + window.localStorage.userId +
             '/activities?page=' + page).then(function (response) {
                 var cards = response.data.data;
-                vm.cards.master = cards;
-                vm.cards.active = cards;
+                vm.cards.active = cards.concat(vm.cards.active);
                 vm.isLoading = false;
             });
         }
@@ -68,7 +68,8 @@
         /**
          * Show the info for the card
          */
-        function showActivityInfo(card) {
+        function showActivityInfo(index) {
+            var card = vm.cards.active[index];
             $state.go('tab.dash-detail', {activityId: card.id });
         }
 
@@ -79,15 +80,17 @@
         }
 
         // On swipe left
-        function cardSwipedLeft(card) {
+        function cardSwipedLeft(index) {
+            var card = vm.cards.active[index];
             console.log('card left');
             vm.cards.disliked.push(card);
             return addDecision(card.id, 0).then(askForEmail).then(loadMoreCards);
         }
 
         // On swipe right
-        function cardSwipedRight(card) {
+        function cardSwipedRight(index) {
             console.log('card right');
+            var card = vm.cards.active[index];
             vm.cards.liked.push(card);
             // ask for email
             return addDecision(card.id, 1).then(askForEmail).then(loadMoreCards);
@@ -101,10 +104,11 @@
         }
 
         function loadMoreCards() {
-            if(vm.cards.active.length > 5) {
+            if(vm.cards.active.length != 0) {
                 return;
             }
-            return getActivities(page++);
+            vm.isLoading = true;
+            return getActivities(0);
         }
 
         // Adds a card to cards.active
@@ -118,7 +122,6 @@
             if (window.localStorage.email) {
                 return;
             }
-
             var done = vm.cards.liked.length + vm.cards.disliked.length;
             if (done !== 0 && done % 5 == 0) {
                 $ionicModal.fromTemplateUrl('templates/register.html', {
@@ -129,7 +132,7 @@
                     $scope.registerModal.show();
                     $scope.register = function (credentials) {
                         window.localStorage.email = credentials.email;
-                        return $http.post('http://localhost:8888/api/users/' + window.localStorage.userId +
+                        return $http.post(ENV.baseApiUrl + 'users/' + window.localStorage.userId +
                         '/email', credentials).then(function () {
                             $scope.registerModal.hide();
                         });
