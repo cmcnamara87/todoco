@@ -13,6 +13,7 @@
 
         vm.activate = activate;
         vm.title = 'ActivitiesShow';
+        vm.openActivity = openActivity;
 
         activate();
 
@@ -22,6 +23,10 @@
             $http.get(ENV.baseApiUrl + 'activities/' + $stateParams.activityId).then(function (response) {
                 vm.activity = response.data;
             });
+        }
+
+        function openActivity(activity) {
+            cordova.InAppBrowser.open('http://to-do.co/activities/' + activity.slug, '_blank', 'location=yes');
         }
     }
 

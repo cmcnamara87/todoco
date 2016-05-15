@@ -1,7 +1,7 @@
-<ion-view view-title="Calendar">
+<ion-view view-title="My Activities">
     <ion-content>
         <ion-list>
-            <div ng-if="vm.isLoading" style="text-align: center; margin-top: 100px;">
+            <div ng-if="vm.isLoading" style="text-align: center; margin-top: 20px;">
                 <ion-spinner></ion-spinner>
             </div>
             <div ng-repeat="(date, activities) in vm.calendar" >

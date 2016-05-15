@@ -6,8 +6,11 @@
 -->
 <ion-view view-title="{{ vm.activity.title }}">
     <ion-content class="padding">
-        <h1>{{ vm.activity.title }}</h1>
+        <p>${{ vm.activity.price }}</p>
         <img ng-src="{{ vm.activity.image_url }}" style="width: 64px; height: 64px">
         <div ng-bind-html="vm.activity.description"></div>
+        <div class="padding">
+            <button class="button button-block button-positive" ng-click="vm.openActivity(vm.activity)">More Info</button>
+        </div>
     </ion-content>
 </ion-view>

@@ -8,7 +8,8 @@ x remove log out
 x add loading to cards
 x add loading to calendar
 x style card
-- fix remove modal not working
+x fix remove modal not working
+- add button to open in browser
 - add slash screen
 - add icon
 - change name
